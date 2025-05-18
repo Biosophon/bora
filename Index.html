@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Já-acordou?</title>
     <style>
         #conteudo {
@@ -21,6 +21,7 @@
             margin: auto;
             width: 170px;
             max-width: 100%;
+            height: 50px;
             display: flex;
             justify-content: space-between;
             position: relative;
@@ -32,6 +33,9 @@
             padding: 10px;
             width: 80px;
             border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative; /* inicial */
         }
     </style>
 </head>
@@ -40,7 +44,7 @@
         <h2>Já acordou?</h2>
         <div class="btn-container">
             <button class="btn" onclick="sim()">SIM</button>
-            <button class="btn" onclick="desvia(this)" onmouseover="desvia(this)">NÃO</button>
+            <button class="btn" onmouseover="desvia(this)">NÃO</button>
         </div>
     </div>
 
@@ -51,14 +55,26 @@
         }
 
         function desvia(btn) {
-            btn.style.position = 'absolute';
-            btn.style.bottom = geraPosicao(10, 90);
-            btn.style.left = geraPosicao(10, 90);
-            console.log('opa, desviei...');
-        }
+            const container = document.querySelector('.btn-container');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
 
-        function geraPosicao(min, max) {
-            return (Math.random() * (max - min) + min) + "%";
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+
+            // posição máxima que o botão pode ter sem sair do container
+            const maxLeft = containerWidth - btnWidth;
+            const maxTop = containerHeight - btnHeight;
+
+            // gerar posições aleatórias dentro dos limites
+            const left = Math.random() * maxLeft;
+            const top = Math.random() * maxTop;
+
+            btn.style.position = 'absolute';
+            btn.style.left = `${left}px`;
+            btn.style.top = `${top}px`;
+
+            console.log('opa, desviei...');
         }
     </script>
 </body>
